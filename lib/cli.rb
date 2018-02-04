@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Cli
-  def self.run(database: database)
+  def self.run(database:)
     workflow = WorkflowStateMachine.new(database: database)
 
     loop do
