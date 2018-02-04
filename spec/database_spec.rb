@@ -61,11 +61,10 @@ RSpec.describe Database do
 
         it 'includes assigned ticket subjects' do
           result = database.search(category: :users, term: '_id', value: '22')
-          expect(result.first['assigned_ticket_0']).to eq("A Catastrophe in Guam")
-          expect(result.first['assigned_ticket_1']).to eq("A Catastrophe in Korea (South)")
-          expect(result.first['assigned_ticket_2']).to eq("A Nuisance in Anguilla")
-          expect(result.first['assigned_ticket_3']).to eq("A Problem in Gambia")
-          expect(result.first['assigned_ticket_4']).to eq("A Drama in Cameroon")
+          expect(result.first['assigned_ticket_0']).to eq("A Problem in Denmark")
+          expect(result.first['assigned_ticket_1']).to eq("A Drama in East Timor")
+          expect(result.first['assigned_ticket_2']).to eq("A Drama in Chad")
+          expect(result.first['assigned_ticket_3']).to eq("A Problem in Malaysia")
         end
 
         it 'includes submitted ticket subjects' do
