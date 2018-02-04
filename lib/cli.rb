@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Cli
-  def run
-    workflow = WorkflowStateMachine.new(database: nil)
+  def self.run(database: database)
+    workflow = WorkflowStateMachine.new(database: database)
 
     loop do
       input = gets.chomp
