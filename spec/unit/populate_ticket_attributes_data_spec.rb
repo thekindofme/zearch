@@ -1,5 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/populate_ticket_attributes'
+require_relative '../spec_helper'
 
 RSpec.describe PopulateTicketAttributes do
   let(:database) { double }

@@ -1,6 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/json_parse_error'
-require_relative '../lib/streamed_json_file_searcher'
+require_relative '../spec_helper'
 
 RSpec.describe StreamedJSONFileSearcher do
   subject(:searcher) { StreamedJSONFileSearcher.new('data/users.json') }

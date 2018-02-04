@@ -1,6 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/json_parse_error'
-require_relative '../lib/searchable_fields_parser'
+require_relative '../spec_helper'
 
 RSpec.describe SearchableFieldsParser do
   describe '#parse' do

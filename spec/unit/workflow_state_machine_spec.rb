@@ -1,5 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/workflow_state_machine'
+require_relative '../spec_helper'
 
 RSpec.describe WorkflowStateMachine do
   let(:database) { double }

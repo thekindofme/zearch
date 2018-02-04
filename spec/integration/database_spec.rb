@@ -1,11 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/database'
-require_relative '../lib/category_table'
-require_relative '../lib/json_parse_error'
-require_relative '../lib/searchable_fields_parser'
-require_relative '../lib/streamed_json_file_searcher'
-require_relative '../lib/populate_user_attributes'
-require_relative '../lib/populate_ticket_attributes'
+require_relative '../spec_helper'
 
 RSpec.describe Database do
   let(:data_sources) {

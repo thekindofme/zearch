@@ -1,5 +1,4 @@
-require_relative 'spec_helper'
-require_relative '../lib/populate_user_attributes'
+require_relative '../spec_helper'
 
 RSpec.describe PopulateUserAttributes do
   let(:database) { double }
