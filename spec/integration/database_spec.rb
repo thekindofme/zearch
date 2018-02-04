@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-RSpec.describe Database do
+RSpec.describe ZenSearch::Database do
   let(:data_sources) {
     {
       users: 'data/users.json',
@@ -8,7 +8,7 @@ RSpec.describe Database do
       organizations: 'data/organizations.json'
     }
   }
-  subject(:database) { Database.new(data_sources: data_sources) }
+  subject(:database) { ZenSearch::Database.new(data_sources: data_sources) }
 
   describe '#searchable_fields' do
     it 'returns a hash of searchable fields for each category' do

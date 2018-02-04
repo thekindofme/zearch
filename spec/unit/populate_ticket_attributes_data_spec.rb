@@ -1,8 +1,8 @@
 require_relative '../spec_helper'
 
-RSpec.describe PopulateTicketAttributes do
+RSpec.describe ZenSearch::PopulateTicketAttributes do
   let(:database) { double }
-  subject(:populate_ticket_attrs) { PopulateTicketAttributes.new(records, database) }
+  subject(:populate_ticket_attrs) { ZenSearch::PopulateTicketAttributes.new(records, database) }
 
   describe '#populate' do
     context 'when `organization_id` is present' do

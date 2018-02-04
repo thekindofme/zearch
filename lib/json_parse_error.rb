@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-JSONParseError = Class.new(StandardError)
+module ZenSearch
+  JSONParseError = Class.new(StandardError)
+end

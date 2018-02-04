@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
-RSpec.describe StreamedJSONFileSearcher do
-  subject(:searcher) { StreamedJSONFileSearcher.new('data/users.json') }
+RSpec.describe ZenSearch::StreamedJSONFileSearcher do
+  subject(:searcher) { ZenSearch::StreamedJSONFileSearcher.new('data/users.json') }
 
   describe '#search' do
     context 'when the search matches a single record' do
@@ -23,7 +23,7 @@ RSpec.describe StreamedJSONFileSearcher do
     end
 
     context 'when searching for objects where the search term is blank' do
-      subject(:searcher) { StreamedJSONFileSearcher.new('spec/fixtures/tickets_with_blank_description.json') }
+      subject(:searcher) { ZenSearch::StreamedJSONFileSearcher.new('spec/fixtures/tickets_with_blank_description.json') }
 
       it 'returns all matching records' do
         expect(searcher.search(term: 'description', value: '').count).to eq(1)
@@ -31,10 +31,10 @@ RSpec.describe StreamedJSONFileSearcher do
     end
 
     context 'when there is a parsing error' do
-      subject(:searcher) { StreamedJSONFileSearcher.new('spec/fixtures/invalid_data.json') }
+      subject(:searcher) { ZenSearch::StreamedJSONFileSearcher.new('spec/fixtures/invalid_data.json') }
 
       it 'raises a `JSONParsingError`' do
-        expect { searcher.search(term: '_id', value: '12') }.to raise_error(JSONParseError)
+        expect { searcher.search(term: '_id', value: '12') }.to raise_error(ZenSearch::JSONParseError)
       end
     end
   end

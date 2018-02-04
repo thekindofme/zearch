@@ -1,8 +1,8 @@
 require_relative '../spec_helper'
 
-RSpec.describe PopulateUserAttributes do
+RSpec.describe ZenSearch::PopulateUserAttributes do
   let(:database) { double }
-  subject(:populate_ticket_attrs) { PopulateUserAttributes.new(records, database) }
+  subject(:populate_ticket_attrs) { ZenSearch::PopulateUserAttributes.new(records, database) }
 
   describe '#populate' do
     before { allow(database).to receive(:search_with_out_relation_data).and_return([]) }

@@ -1,12 +1,12 @@
 require_relative '../spec_helper'
 
-RSpec.describe WorkflowStateMachine do
+RSpec.describe ZenSearch::WorkflowStateMachine do
   let(:database) { double }
-  subject(:workflow) { WorkflowStateMachine.new(database: database) }
+  subject(:workflow) { ZenSearch::WorkflowStateMachine.new(database: database) }
 
   describe '#initialize' do
     it 'display intro message' do
-      expect { workflow }.to output(WorkflowStateMachine::INTRO_TEXT).to_stdout
+      expect { workflow }.to output(ZenSearch::WorkflowStateMachine::INTRO_TEXT).to_stdout
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe WorkflowStateMachine do
         workflow
         expect {
           workflow.handle_input('')
-        }.to output(WorkflowStateMachine::SEARCH_OPTIONS_TEXT).to_stdout
+        }.to output(ZenSearch::WorkflowStateMachine::SEARCH_OPTIONS_TEXT).to_stdout
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe WorkflowStateMachine do
       context 'when opting to `search Zendesk`' do
         it 'asks for a search category' do
           expect { workflow.handle_input('1') }
-            .to output(WorkflowStateMachine::SELECT_SEARCH_CATEGORY_MSG).to_stdout
+            .to output(ZenSearch::WorkflowStateMachine::SELECT_SEARCH_CATEGORY_MSG).to_stdout
         end
       end
 
@@ -52,7 +52,7 @@ RSpec.describe WorkflowStateMachine do
 
           it 'display error message' do
             expect { workflow.handle_input('2') }
-              .to output(/#{WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
+              .to output(/#{ZenSearch::WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
           end
         end
       end
@@ -68,7 +68,7 @@ RSpec.describe WorkflowStateMachine do
         it 'asks for a search term' do
           # Tickets category selected
           expect { workflow.handle_input('2') }
-            .to output(/#{WorkflowStateMachine::ENTER_SEARCH_TERM_MSG}/).to_stdout
+            .to output(/#{ZenSearch::WorkflowStateMachine::ENTER_SEARCH_TERM_MSG}/).to_stdout
         end
       end
 
@@ -76,7 +76,7 @@ RSpec.describe WorkflowStateMachine do
         it 'display an error' do
           # invalid category selected
           expect { workflow.handle_input('99xn9') }
-            .to output(/#{WorkflowStateMachine::INVALID_SEARCH_CATEGORY_MSG}: 99xn9/).to_stdout
+            .to output(/#{ZenSearch::WorkflowStateMachine::INVALID_SEARCH_CATEGORY_MSG}: 99xn9/).to_stdout
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe WorkflowStateMachine do
           allow(database).to receive(:valid_search_term?)
                                .with(category: :tickets, term: 'valid_search_term').and_return(true)
           expect { workflow.handle_input('valid_search_term') }
-            .to output(/#{Regexp.quote(WorkflowStateMachine::ENTER_SEARCH_VALUE_MSG)}/).to_stdout
+            .to output(/#{Regexp.quote(ZenSearch::WorkflowStateMachine::ENTER_SEARCH_VALUE_MSG)}/).to_stdout
         end
       end
 
@@ -108,7 +108,7 @@ RSpec.describe WorkflowStateMachine do
           allow(database).to receive(:valid_search_term?)
                                .with(category: :tickets, term: 'invalid_search_term').and_return(false)
           expect { workflow.handle_input('invalid_search_term') }
-            .to output(/#{WorkflowStateMachine::INVALID_SEARCH_TERM_MSG}/).to_stdout
+            .to output(/#{ZenSearch::WorkflowStateMachine::INVALID_SEARCH_TERM_MSG}/).to_stdout
         end
       end
     end
@@ -149,7 +149,7 @@ RSpec.describe WorkflowStateMachine do
           ).and_return([])
 
           expect { workflow.handle_input('test_search_value') }
-            .to output(/#{WorkflowStateMachine::NO_RESULTS_FOUND_MSG}/).to_stdout
+            .to output(/#{ZenSearch::WorkflowStateMachine::NO_RESULTS_FOUND_MSG}/).to_stdout
         end
       end
 
@@ -158,7 +158,7 @@ RSpec.describe WorkflowStateMachine do
 
         it 'display error message' do
           expect { workflow.handle_input('test_search_value') }
-            .to output(/#{WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
+            .to output(/#{ZenSearch::WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
         end
       end
     end
