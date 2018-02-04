@@ -4,6 +4,8 @@ require_relative '../lib/category_table'
 require_relative '../lib/json_parse_error'
 require_relative '../lib/searchable_fields_parser'
 require_relative '../lib/streamed_json_file_searcher'
+require_relative '../lib/populate_user_attributes'
+require_relative '../lib/populate_ticket_attributes'
 
 RSpec.describe Database do
   let(:data_sources) {
@@ -96,4 +98,19 @@ RSpec.describe Database do
     end
   end
 
+  describe '#search_with_out_relation_data' do
+    context 'when there are matching records' do
+      it 'returns an array of results' do
+        results = database.search_with_out_relation_data(category: :users, term: '_id', value: '7')
+        expect(results).not_to be_empty
+        expect(results.first['_id']).to eq(7)
+      end
+    end
+
+    context 'when there no matching records' do
+      it 'returns an empty array' do
+        expect(database.search_with_out_relation_data(category: :users, term: '_id', value: '412112axdw')).to be_empty
+      end
+    end
+  end
 end
