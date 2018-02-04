@@ -12,6 +12,9 @@ class CategoryTable
     @fields ||= SearchableFieldsParser.new(data_file_path).parse
   end
 
+  def search(term:, value:)
+    StreamedJSONFileSearcher.new(data_file_path).search(term: term, value: value)
+  end
 
   private
 

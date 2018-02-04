@@ -3,6 +3,7 @@ require_relative '../lib/database'
 require_relative '../lib/category_table'
 require_relative '../lib/json_parse_error'
 require_relative '../lib/searchable_fields_parser'
+require_relative '../lib/streamed_json_file_searcher'
 
 RSpec.describe Database do
   let(:data_sources) {

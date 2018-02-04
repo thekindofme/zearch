@@ -17,6 +17,9 @@ class Database
     end
   end
 
+  def search(category:, term:, value:)
+    category_tables[category].search(term: term, value: value)
+  end
   private
 
   attr_accessor :category_tables
