@@ -42,11 +42,9 @@ class StreamedJSONFileSearcher
     @results = []
 
     IO.foreach(file_path) do |line|
-      begin
-        file_parser << line
-      rescue JSON::Stream::ParserError => e
-        raise JSONParseError, 'Unable to parse the JSON file for searching: ' + e.inspect
-      end
+      file_parser << line
+    rescue JSON::Stream::ParserError => e
+      raise JSONParseError, 'Unable to parse the JSON file for searching: ' + e.inspect
     end
 
     results
