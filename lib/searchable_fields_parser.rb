@@ -3,8 +3,6 @@
 require 'json/stream'
 
 class SearchableFieldsParser
-  JSONParseError = Class.new(StandardError)
-
   def initialize(file_path)
     @state = :init
     @fields = []

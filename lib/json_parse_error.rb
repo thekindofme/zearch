@@ -1,0 +1,1 @@
+JSONParseError = Class.new(StandardError)

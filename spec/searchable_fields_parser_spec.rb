@@ -1,4 +1,5 @@
 require_relative 'spec_helper'
+require_relative '../lib/json_parse_error'
 require_relative '../lib/searchable_fields_parser'
 
 RSpec.describe SearchableFieldsParser do
@@ -32,7 +33,7 @@ RSpec.describe SearchableFieldsParser do
     context 'when the document contain invalid json' do
       it 'raises a `JSONParseError`' do
         parser = SearchableFieldsParser.new('spec/fixtures/invalid_data.json')
-        expect { parser.parse }.to raise_error(SearchableFieldsParser::JSONParseError)
+        expect { parser.parse }.to raise_error(JSONParseError)
       end
     end
   end

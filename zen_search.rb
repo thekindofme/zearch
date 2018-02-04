@@ -1,3 +1,4 @@
+require_relative 'lib/json_parse_error'
 require_relative 'lib/cli'
 require_relative 'lib/workflow_state_machine'
 require_relative 'lib/database'
