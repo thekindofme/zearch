@@ -26,6 +26,7 @@ Select search options:
   ENTER_SEARCH_VALUE_MSG = "Enter search value (or just 'Enter' for empty value)"
   SEARCH_INITIATED_MSG = 'Searching %<category>s for %<term>s with a value of %<value>s'
   NO_RESULTS_FOUND_MSG = 'No results found'
+  ERROR_MSG = 'Sorry something broke. Details: '
 
   def initialize(database:)
     self.database = database
@@ -102,14 +103,7 @@ Select search options:
       term: search_term,
       value: search_value
     )
-
-    results = execute_search(category: search_category, term: search_term, value: search_value)
-    if results.any?
-      pp results
-    else
-      puts NO_RESULTS_FOUND_MSG
-    end
-
+    execute_and_display_search_results
     reset_state_machine
     puts INTRO_TEXT
   end
@@ -123,6 +117,17 @@ Select search options:
     self.search_category = self.search_term = self.search_value = nil
   end
 
+  def execute_and_display_search_results
+    results = execute_search(category: search_category, term: search_term, value: search_value)
+    if results.any?
+      pp results
+    else
+      puts NO_RESULTS_FOUND_MSG
+    end
+  rescue StandardError => e
+    puts ERROR_MSG + e.message.to_s
+  end
+
   def execute_search(category:, term:, value:)
     database.search(category: category, term: term, value: value)
   end
@@ -133,5 +138,7 @@ Select search options:
       puts "Search #{category} with"
       puts fields
     end
+  rescue StandardError => e
+    puts ERROR_MSG + e.message.to_s
   end
 end

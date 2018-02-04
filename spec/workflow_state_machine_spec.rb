@@ -47,6 +47,15 @@ RSpec.describe WorkflowStateMachine do
           expect { workflow.handle_input('2') }
             .to output(/user_a/).to_stdout
         end
+
+        context 'when there is an error' do
+          before { allow(database).to receive(:searchable_fields).and_raise(StandardError.new('debugging info goes here')) }
+
+          it 'display error message' do
+            expect { workflow.handle_input('2') }
+              .to output(/#{WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
+          end
+        end
       end
     end
 
@@ -142,6 +151,15 @@ RSpec.describe WorkflowStateMachine do
 
           expect { workflow.handle_input('test_search_value') }
             .to output(/#{WorkflowStateMachine::NO_RESULTS_FOUND_MSG}/).to_stdout
+        end
+      end
+
+      context 'when there is an error searching for a match' do
+        before { allow(database).to receive(:search).and_raise(StandardError.new('debugging info goes here')) }
+
+        it 'display error message' do
+          expect { workflow.handle_input('test_search_value') }
+            .to output(/#{WorkflowStateMachine::ERROR_MSG}debugging info goes here/).to_stdout
         end
       end
     end
