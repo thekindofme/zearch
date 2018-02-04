@@ -25,6 +25,7 @@ Select search options:
   INVALID_SEARCH_TERM_MSG = 'Invalid search term!'
   ENTER_SEARCH_VALUE_MSG = "Enter search value (or just 'Enter' for empty value)"
   SEARCH_INITIATED_MSG = 'Searching %<category>s for %<term>s with a value of %<value>s'
+  NO_RESULTS_FOUND_MSG = 'No results found'
 
   def initialize(database:)
     self.database = database
@@ -62,7 +63,7 @@ Select search options:
       self.state = :search_select_category_stage
       puts SELECT_SEARCH_CATEGORY_MSG
     when LIST_SEARCHABLE_FIELDS_CMD
-      puts all_searchable_fields
+      display_all_searchable_fields
 
       reset_state_machine
       puts INTRO_TEXT
@@ -84,7 +85,7 @@ Select search options:
   end
 
   def handle_search_enter_term_stage(input)
-    if valid_search_term?(input)
+    if valid_search_term?(search_category, input)
       self.state = :search_enter_value_stage
       self.search_term = input
       puts ENTER_SEARCH_VALUE_MSG
@@ -102,15 +103,19 @@ Select search options:
       value: search_value
     )
 
-    result = execute_search(category: search_category, term: search_term, value: search_value)
-    puts result
+    results = execute_search(category: search_category, term: search_term, value: search_value)
+    if results.any?
+      pp results
+    else
+      puts NO_RESULTS_FOUND_MSG
+    end
 
     reset_state_machine
     puts INTRO_TEXT
   end
 
-  def valid_search_term?(search_term)
-    database.valid_search_term?(search_term)
+  def valid_search_term?(search_category, search_term)
+    database.valid_search_term?(category: search_category, term: search_term)
   end
 
   def reset_state_machine
@@ -122,7 +127,11 @@ Select search options:
     database.search(category: category, term: term, value: value)
   end
 
-  def all_searchable_fields
-    database.list_searchable_fields
+  def display_all_searchable_fields
+    database.searchable_fields.each do |category, fields|
+      puts '-------------------------------------------------------'
+      puts "Search #{category} with"
+      puts fields
+    end
   end
 end
