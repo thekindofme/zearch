@@ -1,5 +1,8 @@
 require_relative 'spec_helper'
 require_relative '../lib/database'
+require_relative '../lib/category_table'
+require_relative '../lib/json_parse_error'
+require_relative '../lib/searchable_fields_parser'
 
 RSpec.describe Database do
   let(:data_sources) {
