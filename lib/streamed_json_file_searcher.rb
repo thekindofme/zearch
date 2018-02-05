@@ -43,12 +43,14 @@ module ZenSearch
       @results = []
 
       IO.foreach(file_path) do |line|
-        file_parser << line
-      rescue JSON::Stream::ParserError => e
-        raise JSONParseError, 'Unable to parse the JSON file for searching: ' + e.inspect
+        begin
+          file_parser << line
+        rescue JSON::Stream::ParserError => e
+          raise JSONParseError, 'Unable to parse the JSON file for searching: ' + e.inspect
+        end
       end
 
-      results
+      @results
     end
 
     private
